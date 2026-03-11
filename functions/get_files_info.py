@@ -24,8 +24,11 @@ def get_files_info(working_directory: str, directory=".") -> str:
     
     final_str = ""
     for item in os.listdir(target_dir):
-        item_path = os.path.join(target_dir, item)
-        file_size = os.path.getsize(item_path)
-        is_dir = os.path.isdir(item_path)
-        final_str += f"- {item}: file_size={file_size} bytes, is_dir={is_dir}\n"
-    return final_str
+        try:
+            item_path = os.path.join(target_dir, item)
+            file_size = os.path.getsize(item_path)
+            is_dir = os.path.isdir(item_path)
+            final_str += f"- {item}: file_size={file_size} bytes, is_dir={is_dir}\n"
+            return final_str
+        except:
+            return f'Error: Failed to get the file information in the "{target_dir}" directory'
