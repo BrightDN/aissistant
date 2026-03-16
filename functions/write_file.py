@@ -1,4 +1,5 @@
 import os
+from google.genai import types
 
 def write_file(working_directory: str, file_path: str, content: str) -> str:
     '''
@@ -30,3 +31,21 @@ def write_file(working_directory: str, file_path: str, content: str) -> str:
             return f'Successfully wrote to "{file_path}" ({l} characters written)'
         except:
             return f'Error: Cannot read {file_path}'
+        
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes content into the provided file",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the file in which to write content",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to overwrite the existing content with",
+            ),
+        },
+    ),
+)
